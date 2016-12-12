@@ -14,16 +14,16 @@ If you want to trasverse all the links on your own :
 
 		npm install request
 
-	or
+or
 		yarn add request
 
 * then run the grepcard.js script:
 
-	ndoe grepcard.js
+		ndoe grepcard.js
 
 * You can then use other package to download pictures(or simply writeFileSync() in binary). If you have GNU wget, there is a script for download all the pictures on the list:
 
-	sh pgdl.sh
+		sh pgdl.sh
 
 
 enjoy.
