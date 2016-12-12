@@ -28,4 +28,4 @@ or
 
 enjoy.
 
-GPL license, thanks.
+LGPL license, thanks.
