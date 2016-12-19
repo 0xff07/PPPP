@@ -47,7 +47,8 @@ function img_section_html(title, src){
 
 
 	/* Dcard use "last post sent id" as postfix in request header. It sends responses in JSON*/
-	function scroll(LAST_ID){
+	function scroll(LAST_ID, depth){
+		if(!depth)return;
 		var next = "https://www.dcard.tw/_api/forums/sex/posts?popular=false&before=" + LAST_ID;
 		cat(next, function(content){
 			var res = JSON.parse(content);
@@ -65,7 +66,7 @@ function img_section_html(title, src){
 					})
 				})
 			}
-			scroll(res[res.length - 1].id);
+			scroll(res[res.length - 1].id, depth - 1);
 		})
 	}
 
@@ -74,6 +75,7 @@ function img_section_html(title, src){
 	function view_menu(url){
 		var LAST_ID = "";
 	    cat(url, function(content){
+			var depth = 10;
 			grep(content, REG_DCARD_PAGE, function(link){
 				link = DCARD_HOST + link;
 				if(debug)console.log(link);
@@ -85,7 +87,7 @@ function img_section_html(title, src){
 				LAST_ID = link.replace(/.*\//g, "");
 			})
 			if(debug)console.log(LAST_ID);
-			scroll(LAST_ID);
+			scroll(LAST_ID, depth - 1);
 		})
 
 	}
