@@ -85,7 +85,7 @@ function img_section_html(title, src){
 				LAST_ID = link.replace(/.*\//g, "");
 			})
 			if(debug)console.log(LAST_ID);
-			scroll(LAST_ID);
+			//scroll(LAST_ID);
 		})
 
 	}
