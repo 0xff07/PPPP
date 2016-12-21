@@ -1,11 +1,11 @@
 'use strict'
 function img_section_html(title, src){
 		return "" +
-		"<div class=\"container\">"+
-	        "<div class=\"row\">"+
-	            "<div class=\"col-lg-12\">"+
-	                "<h1 class=\"section-heading\">" + title + "</h1>"+
-		            "<img class=\"img-responsive img-center\" src=\"" + src +  "\" />" +
+		"<div class='container'>"+
+	        "<div class='row'>"+
+	            "<div class='col-lg-12'>"+
+	                "<h1 class='section-heading'>" + title + "</h1>"+
+		            "<img class='img-responsive img-center' src='" + src +  "' >" +
 		        "</div>" +
 		    "</div>" +
 		"</div>" + "<br>" + "<br>" + "<br>";
