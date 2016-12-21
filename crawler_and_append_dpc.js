@@ -80,8 +80,7 @@ function img_section_html(title, src){
 
 
 	/* However, first request is HTML, which should be handled seperately */
-	function view_menu(){
-		var url = "https://www.dcard.tw/f/sex?latest=true";
+	function view_menu(url){
 		var LAST_ID = "";
 	    cat(url, function(content){
 			var depth = 3;
@@ -106,4 +105,4 @@ function img_section_html(title, src){
 	}
 
 /* the only code that will be executed for parsing is this */
-//view_menu("https://www.dcard.tw/f/sex?latest=true");
+view_menu("https://www.dcard.tw/f/sex?latest=true");

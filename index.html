@@ -23,11 +23,25 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+	<!--
 	<script type="text/javascript" src="crawler_and_append_dpc.js" charset="utf-8"></script>
+	-->
+	<script type="text/javascript">
+		function downloadJSAtOnload() {
+			var element = document.createElement("script");
+		    element.src = "crawler_and_append_dpc.js";
+			document.body.appendChild(element);
+		}
+		if (window.addEventListener)
+			window.addEventListener("load", downloadJSAtOnload, false);
+		else if (window.attachEvent)
+			 window.attachEvent("onload", downloadJSAtOnload);
+		else window.onload = downloadJSAtOnload;
+	</script>
+
 </head>
 
-<body onload="view_menu()">
+<body>
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
