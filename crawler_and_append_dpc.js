@@ -1,5 +1,4 @@
 'use strict'
-
 function img_section_html(title, src){
 		return "" +
 		"<div class=\"container\">"+
@@ -16,7 +15,7 @@ function img_section_html(title, src){
 	const DCARD_HOST = "https://www.dcard.tw";
 	const REG_DCARD_IMAGE = /(https?:\/\/imgur\.dcard\.tw\/\S+\.jpg)/g;
 	const REG_DCARD_PAGE = /<a class="PostEntry_entry_2rsgm" href="(\S+)"\s+\S+>/g;
-	var debug = 0;
+	var debug = 1;
 	var src = "https://www.dcard.tw/f/sex?latest=true";
 
 	function cat(theUrl, callback)
@@ -45,6 +44,14 @@ function img_section_html(title, src){
 	}
 
 
+	function addDOMElement(link){
+		console.log(link);
+		var child = document.createElement('section');
+		child.innerHTML = img_section_html("", link);
+		child = child.firstChild;
+		document.getElementById('dcard_sex_pics').appendChild(child);
+	}
+
 
 	/* Dcard use "last post sent id" as postfix in request header. It sends responses in JSON*/
 	function scroll(LAST_ID, depth){
@@ -58,15 +65,16 @@ function img_section_html(title, src){
 				if(debug)console.log(link);
 				cat(link, function(content){
 					grep(content, REG_DCARD_IMAGE, function(link){
-	          console.log(link);
+						console.log(link);
 						var child = document.createElement('section');
 						child.innerHTML = img_section_html("", link);
 						child = child.firstChild;
 						document.getElementById('dcard_sex_pics').appendChild(child);
+
 					})
 				})
 			}
-			//scroll(res[res.length - 1].id, depth - 1);
+			scroll(res[res.length - 1].id, depth - 1);
 		})
 	}
 
@@ -82,12 +90,16 @@ function img_section_html(title, src){
 				cat(link, function(content){
 					grep(content, REG_DCARD_IMAGE, function(link){
 						console.log(link);
+						var child = document.createElement('section');
+						child.innerHTML = img_section_html("", link);
+						child = child.firstChild;
+						document.getElementById('dcard_sex_pics').appendChild(child);
 					})
 				})
 				LAST_ID = link.replace(/.*\//g, "");
 			})
 			if(debug)console.log(LAST_ID);
-			scroll(LAST_ID, depth - 1);
+			//scroll(LAST_ID, depth - 1);
 		})
 
 	}
