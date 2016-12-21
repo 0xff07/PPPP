@@ -26,18 +26,6 @@
 	<!--
 	<script type="text/javascript" src="crawler_and_append_dpc.js" charset="utf-8"></script>
 	-->
-	<script type="text/javascript">
-		function downloadJSAtOnload() {
-			var element = document.createElement("script");
-		    element.src = "crawler_and_append_dpc.js";
-			document.body.appendChild(element);
-		}
-		if (window.addEventListener)
-			window.addEventListener("load", downloadJSAtOnload, false);
-		else if (window.attachEvent)
-			 window.attachEvent("onload", downloadJSAtOnload);
-		else window.onload = downloadJSAtOnload;
-	</script>
 
 </head>
 
@@ -99,6 +87,20 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
+	<!-- crawler -->
+	<script type="text/javascript">
+		function downloadJSAtOnload() {
+			var element = document.createElement("script");
+		    element.src = "crawler_and_append_dpc.js";
+			document.body.appendChild(element);
+		}
+		if (window.addEventListener)
+			window.addEventListener("load", downloadJSAtOnload, false);
+		else if (window.attachEvent)
+			 window.attachEvent("onload", downloadJSAtOnload);
+		else window.onload = downloadJSAtOnload;
+	</script>
 
 </body>
 
