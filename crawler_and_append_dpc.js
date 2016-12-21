@@ -75,7 +75,7 @@ function img_section_html(title, src){
 	function view_menu(url){
 		var LAST_ID = "";
 	    cat(url, function(content){
-			var depth = 10;
+			var depth = 3;
 			grep(content, REG_DCARD_PAGE, function(link){
 				link = DCARD_HOST + link;
 				if(debug)console.log(link);
