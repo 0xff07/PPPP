@@ -66,7 +66,7 @@ function img_section_html(title, src){
 					})
 				})
 			}
-			scroll(res[res.length - 1].id, depth - 1);
+			//scroll(res[res.length - 1].id, depth - 1);
 		})
 	}
 
