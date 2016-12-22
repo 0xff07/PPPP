@@ -23,7 +23,7 @@ body {
 }
 
 .image-bg-fixed-height {
-	background: url('') no-repeat center center scroll;
+	background: url('../header.jpg') no-repeat center center scroll;
     height: 450px;
 }
 

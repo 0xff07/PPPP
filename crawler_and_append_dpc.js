@@ -54,20 +54,21 @@ function img_section_html(title, src){
 
 const pfx = "https://www.dcard.tw/_api/forums/sex/posts?popular=false";
 function scroll(url){
+	var next = "";
 	cat(url, function(content){
 		res = JSON.parse(content)
-		console.log(res);
-		last_id = 0;
+		//console.log(res);
+		next = pfx + "&before=" + res[res.length - 1].id;
 		for(var i = 0; i < res.length; i++){
 			for(var j = 0; j < res[i].media.length; j++){
 				link = res[i].media[j].url;
-				console.log(link);
+				//console.log(link);
 				addDOMElement(link);
 			}
-			last_id = res[i].id;
 		}
+		console.log(next);
+		scroll(next);
 	})
-	scroll(pfx + "&before="+last_id);
 }
 
 /* main */
