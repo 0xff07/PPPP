@@ -53,8 +53,8 @@ function img_section_html(title, src){
 
 
 const pfx = "https://www.dcard.tw/_api/forums/sex/posts?popular=false";
-function scroll(postfix){
-	cat(src, function(content){
+function scroll(url){
+	cat(url, function(content){
 		res = JSON.parse(content)
 		console.log(res);
 		last_id = 0;
