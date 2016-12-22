@@ -1,4 +1,4 @@
-PPDP
+PPPP
 A node.js script that trasverse all posts on Dcard sex forum and save all imgur photo links in .photo_link.txt.
 You can use any download tools to download all the pictures on the list(e.g. wget, curl etc.).
 The .photo_link.txt in the repo is all the imgur links posted before 12, Dec, 2016.
