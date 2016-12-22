@@ -29,3 +29,6 @@ or
 enjoy.
 
 LGPL license, thanks.
+
+12/22 Update : No longer provide .photo_link.txt file.
+
