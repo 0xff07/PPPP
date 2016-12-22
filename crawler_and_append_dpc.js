@@ -1,4 +1,3 @@
-'use strict'
 function img_section_html(title, src){
 		return "" +
 		"<div class='container'>"+
@@ -15,11 +14,8 @@ function img_section_html(title, src){
 	const DCARD_HOST = "https://www.dcard.tw";
 	const REG_DCARD_IMAGE = /(https?:\/\/imgur\.dcard\.tw\/\S+\.jpg)/g;
 	const REG_DCARD_PAGE = /<a class="PostEntry_entry_2rsgm" href="(\S+)"\s+\S+>/g;
-	//const REG_MOB_ID = /+(\d+),/g;
 	const DCARD_SEX_PFX = "https://www.dcard.tw/f/sex/p/";
-
 	var debug = 1;
-	var src = "https://www.dcard.tw/f/sex?latest=true";
 
 	function cat(theUrl, callback)
 	{
@@ -56,83 +52,23 @@ function img_section_html(title, src){
 	}
 
 
-	/* Dcard use "last post sent id" as postfix in request header. It sends responses in JSON*/
-	function scroll(LAST_ID, depth){
-		if(!depth)return;
-		var next = "https://www.dcard.tw/_api/forums/sex/posts?popular=false&before=" + LAST_ID;
-		cat(next, function(content){
-			var res = JSON.parse(content);
-			if(debug)console.log(res);
-			for(var i = 0; i < res.length; i++){
-				var link = "https://www.dcard.tw/f/sex/p/" + res[i].id;
-				if(debug)console.log(link);
-				cat(link, function(content){
-					grep(content, REG_DCARD_IMAGE, function(link){
-						console.log(link);
-						var child = document.createElement('section');
-						child.innerHTML = img_section_html("", link);
-						child = child.firstChild;
-						document.getElementById('dcard_sex_pics').appendChild(child);
-
-					})
-				})
+const pfx = "https://www.dcard.tw/_api/forums/sex/posts?popular=false";
+function scroll(postfix){
+	cat(src, function(content){
+		res = JSON.parse(content)
+		console.log(res);
+		last_id = 0;
+		for(var i = 0; i < res.length; i++){
+			for(var j = 0; j < res[i].media.length; j++){
+				link = res[i].media[j].url;
+				console.log(link);
+				addDOMElement(link);
 			}
-			scroll(res[res.length - 1].id, depth - 1);
-		})
-	}
+			last_id = res[i].id;
+		}
+	})
+	scroll(pfx + "&before="+last_id);
+}
 
-	function iPhoneScroll(depth){
-		if(!depth)return;
-		var next = "https://www.dcard.tw/_api/forums/sex/posts?popular=false";
-		cat(next, function(content){
-			var res = JSON.parse(content);
-			if(debug)console.log(res);
-			for(var i = 0; i < res.length; i++){
-				var link = "https://www.dcard.tw/f/sex/p/" + res[i].id;
-				if(debug)console.log(link);
-				cat(link, function(content){
-					grep(content, REG_DCARD_IMAGE, function(link){
-						console.log(link);
-						var child = document.createElement('section');
-						child.innerHTML = img_section_html("", link);
-						child = child.firstChild;
-						document.getElementById('dcard_sex_pics').appendChild(child);
-
-					})
-				})
-			}
-			scroll(res[res.length - 1].id, depth - 1);
-		})
-	}
-
-
-
-	/* However, first request is HTML, which should be handled seperately */
-	function view_menu(url){
-		var LAST_ID = "";
-	    cat(url, function(content){
-			var depth = 3;
-			grep(content, REG_DCARD_PAGE, function(link){
-				link = DCARD_HOST + link;
-				if(debug)console.log(link);
-				cat(link, function(content){
-					grep(content, REG_DCARD_IMAGE, function(link){
-						console.log(link);
-						var child = document.createElement('section');
-						child.innerHTML = img_section_html("", link);
-						child = child.firstChild;
-						document.getElementById('dcard_sex_pics').appendChild(child);
-					})
-				})
-				LAST_ID = link.replace(/.*\//g, "");
-			})
-
-			if(debug)console.log(LAST_ID);
-			//scroll(LAST_ID, depth - 1);
-		})
-
-	}
-
-/* the only code that will be executed for parsing is this */
-//view_menu("https://www.dcard.tw/_api/forums/sex/posts?popular=false");
-iPhoneScroll(3);
+/* main */
+scroll(pfx);
